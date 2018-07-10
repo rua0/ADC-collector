@@ -1,0 +1,23 @@
+Saleae protocol
+
+https://sigrok.org/wiki/Saleae_Logic16#Protocol
+
+
+libsigrok
+
+https://sigrok.org/api/libsigrok/unstable/modules.html
+
+sigrok-cli --driver fx2lafw -d samplerate=100khz --samples 1024 -O ascii -p 1
+
+
+https://www.electronicproducts.com/Software/Development_Tools_and_Software/Hands_on_review_Analyze_signals_with_free_open_source_sigrok_PulseView.aspx
+
+The sigrock software consists of the following components:
+
+Libsigrok: a shared library written in C, which contains the general infrastructure for handling logic analyzer data in a streaming fashion. It also contains the individual hardware drivers, which add support for various logic analyzers.
+
+Libsigrokdecode: a shared library written in C, which contains the protocol decoder infrastructure and the protocol decoders themselves, which are written in Python.
+
+Sigrokcli: a command-line front end, which uses both libsigrok and libsigrokdecode. It can acquire samples from logic analyzers and output them in various formats into files or to stdout and/or run protocol decoders on the acquired data.
+
+Sigrokqt: a Qt-based GUI for sigrok, using both libsigrok and libsigrokdecode. This is intended to be a cross-platform GUI (it runs fine and looks native on Linux, Windows, and Mac OS X) supporting data acquisition and protocol decoding.
