@@ -21,3 +21,53 @@ Libsigrokdecode: a shared library written in C, which contains the protocol deco
 Sigrokcli: a command-line front end, which uses both libsigrok and libsigrokdecode. It can acquire samples from logic analyzers and output them in various formats into files or to stdout and/or run protocol decoders on the acquired data.
 
 Sigrokqt: a Qt-based GUI for sigrok, using both libsigrok and libsigrokdecode. This is intended to be a cross-platform GUI (it runs fine and looks native on Linux, Windows, and Mac OS X) supporting data acquisition and protocol decoding.
+
+----------------------------------------------------
+
+Want to do both sigrok-cli and PulseView
+
+
+Dependency:
+
+sigrok-cli
+	git (only needed when building from git)
+	gcc or clang
+	make
+	autoconf >= 2.63 (only needed when building from git)
+	automake >= 1.11 (only needed when building from git)
+	libtool (only needed when building from git)
+	pkg-config >= 0.22
+	This is part of the standard OpenBSD install (not an extra package), 	apparently.
+	libglib >= 2.32.0
+	libsigrok >= 0.4.0
+	libsigrokdecode >= 0.4.0
+PulseView
+	git (only needed when building from git)
+	A C++ compiler with C++11 support (-std=c++11 option), e.g.
+	g++ (>= 4.8.1)
+	clang++ (>= 3.3)
+	make
+	libtool (only needed when building from git)
+	pkg-config >= 0.22
+	This is part of the standard OpenBSD install (not an extra package), 	apparently.
+	cmake >= 2.8.12
+	libglib >= 2.28.0
+	glibmm-2.4 (>= 2.28.0)
+	Qt5 (including the following components):
+	Qt5Core, Qt5Gui, Qt5Widgets, Qt5Svg
+	libboost >= 1.55 (including the following libs):
+	libboost-sytem
+	libboost-filesystem
+	libboost-serialization
+	libboost-test (optional, only needed to run unit tests)
+	libsigrokcxx >= 0.4.0 (libsigrok C++ bindings)
+	libsigrokdecode >= 0.4.0
+	libsigrokandroidutils >= 0.1.0 (optional, only needed on Android)
+
+
+
+---
+to install, first update and upgrade the source list
+
+sudo apt-get update
+sudo apt-get upgrade
