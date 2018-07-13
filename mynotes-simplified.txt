@@ -6,24 +6,56 @@ Use this website as the sole reference for installation. Building is required.
 
 https://sigrok.org/wiki/Linux
 
-Most lib are installed using the following:
-
-firstly use the "sudo apt-get install" to install all requirements on the website above
+With dependencies installed, most lib are installed using something like the following just with the right name:
 
 $ git clone git://sigrok.org/libsigrok
-$ cd libsigrok
+$ git clone git://sigrok.org/libsigrokdecode
+$ git clone git://sigrok.org/sigrok-firmware
+$ git clone git://sigrok.org/sigrok-cli
+$ cd libsigrok (and the rest)
 $ ./autogen.sh
-$ ./configure
+$ ./configure  (seems to check if anything is missing)
 $ make
 $ sudo make install
-------------------
 
-Here are the libraries that I have installed: 
+git clone git://sigrok.org/sigrok-cli
+cd sigrok-cli
+./autogen.sh
+./configure
+make
+sudo make install
 
-libsigrok
+Here are the libraries that I have installed to get it working: 
+
+libsigrok (takes a long time to autogen and make)
 libsigrokdecode
 sigrok-firmware
 sigrok-cli (the one used to collect data, the others are dependencies)
+
+
+
+-----Dependency-----
+Here are the dependency for each libraries:
+
+libsigrok:
+sudo apt-get install git-core gcc g++ make autoconf autoconf-archive automake libtool pkg-config libglib2.0-dev libglibmm-2.4-dev libzip-dev libusb-1.0-0-dev libftdi1-dev check doxygen python-numpy  python-dev python-gi-dev python-setuptools swig default-jdk
+
+libsigrokdecode:
+sudo apt-get install git-core gcc make autoconf automake libtool pkg-config libglib2.0-dev python3-dev
+
+sigrok-firmware:
+None
+
+sigrok-cli:
+sudo apt-get install git-core gcc make autoconf automake libtool pkg-config libglib2.0-dev
+
+---------Notice----------
+Most stuffs are covered by libsigrok's dependencies
+Java part will fail but that's fine
+
+
+------------------
+
 
 The dependencies for each library are taken care of by the apt-get part for each section.
 
@@ -54,7 +86,11 @@ If sigrok-firmware library is installed, then you have a directory "~/../../usr/
 
 sudo cp -a $(dir)/saleae-logic16-fpga-18.bitstream ~/../../usr/local/share/sigrok-firmware/
 sudo cp -a $(dir)/saleae-logic16-fpga-33.bitstream ~/../../usr/local/share/sigrok-firmware/
-sudo cp -a $(dir)/saleae-logic16-f ~/../../usr/local/share/sigrok-firmware/
+sudo cp -a $(dir)/saleae-logic16-fx2.fw ~/../../usr/local/share/sigrok-firmware/
+
+sudo cp -a ~/Downloads/Logic_/saleae-logic16-fpga-18.bitstream ~/../../usr/local/share/sigrok-firmware/
+sudo cp -a ~/Downloads/Logic_/saleae-logic16-fpga-33.bitstream ~/../../usr/local/share/sigrok-firmware/
+sudo cp -a ~/Downloads/Logic_/saleae-logic16-fx2.fw ~/../../usr/local/share/sigrok-firmware/
 
 sudo is necessary since we are copying into permission required directory.
 
@@ -68,6 +104,24 @@ Refer to the man page for details. Also in this website: https://sigrok.org/wiki
 Here's one run of it that collects data at 1mHz sample rate for 1s and the data being saved in the form of csv, (timestamped comma-separated numbers?), in the name "data.txt".
 
 sudo sigrok-cli --driver saleae-logic16 --time 1s --config samplerate=1m -o data.txt -O csv
+
+
+In the future to have multiple devices running simultaneously, read the following:
+#
+ Drivers communicating with hardware via  a  serial  port	always
+	      need  the port specified as the conn option. For example, to use
+	      the Openbench Logic Sniffer:
+
+		$ sigrok-cli --driver=ols:conn=/dev/ttyACM0
+
+	      Some USB devices don't use a unique VendorID/ProductID  combina-
+	      tion,  and  thus need that specified as well. This also uses the
+	      conn option, using either VendorID.ProductID or bus.address:
+
+		$ sigrok-cli --driver=uni-t-ut61e:conn=1a86.e008
+#
+
+Basically, VendorID.ProductID is needed. Check addition "Useful command section".
 
 -----------------
 
@@ -91,16 +145,34 @@ A sample segment of a csv output file is put in "SampleDataFiles"
 
 Feel free to play with other flag options
 
+--------------------------------------------
+Useful additional command
+--------------------------------------------
+
+lsusb to see id's for attached devices
 
 
 
 
 
+--------------------------------------------
+Records
+--------------------------------------------
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 5s --config samplerate=1m -o data5s.txt -O csv
+Device only sent 337920 samples.
 
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -o data1s.txt -O csv
+Device only sent 337920 samples.
 
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 337 --config samplerate=1m -o data337ms.txt -O csv
 
+----comments----
+Supposedly, we should get 5000000 for 5s, but it seems to have capped at this number
 
+https://sigrok.org/bugzilla/show_bug.cgi?id=762
+"But I found a (ugly) workaround, and that is why I'm adding this comment: I am now running my script from /dev/shm. I have my dump at each first attempt of any test case.
 
+This is platform dependent, so buffering is still the way to go for a proper fix."
 --------------------------------------------
 No use for now
 --------------------------------------------
