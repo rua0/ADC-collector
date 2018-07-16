@@ -1,0 +1,40 @@
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -o data35k_sine_125k_clk_1m_sp_1s.csv -O csv
+
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=500k -o data35k_sine_125k_clk_500k_sp_1s.csv -O csv
+
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -o data35k_sine_125k_clk_1m_sp_1s.csv -O csv
+
+
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -o data35k_sine_125k_clk_1m_sp_1s.csv -O csv
+
+
+
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 337 --config samplerate=1m -o data337ms.txt -O csv
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 337 --config samplerate=1m -o data337ms.txt -O csv
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 337 --config samplerate=1m -o data337ms.txt -O csv
+
+--------------------------------------------------
+
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -o data35k_sine_125k_clk_1m_sp_1s.csv -O csv
+
+result: 
+Device only sent 368640 samples.
+
+
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=500k -o data35k_sine_125k_clk_500k_sp_1s.csv -O csv
+
+result: 
+Device only sent 189440 samples.
+biggest time stamp: 378880
+
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -o data35k_sine_250k_clk_1m_sp_1s.csv -O csv
+
+result: 
+
+Device only sent 378880 samples.
+
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=500k -o data35k_sine_250k_clk_500k_sp_1s.csv -O csv
+
+result: 
+
+Device only sent 189440 samples.

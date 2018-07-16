@@ -1,0 +1,216 @@
+    1  ls /dev
+    2  lsusb
+    3  sudo apt-get update
+    4  sudo apt-get dist-upgrade
+    5  sudo apt-get install git-core gcc g++ make autoconf autoconf-archive automake libtool pkg-config libglib2.0-dev libglibmm-2.4-dev libzip-dev libusb-1.0-0-dev libftdi1-dev check doxygen python-numpy  python-dev python-gi-dev python-setuptools swig default-jdk
+    6  sudo apt-get install git-core gcc make autoconf automake libtool pkg-config libglib2.0-dev python3-dev
+    7  sudo apt-get install git-core gcc make autoconf automake libtool pkg-config libglib2.0-dev
+    8  cd Documents/
+    9  ls
+   10  git clone git://sigrok.org/libsigrok
+   11  cd libsigrok/
+   12  ./autogen.sh 
+   13  ./configure 
+   14  make
+   15  sudo make install
+   16  ls
+   17  cd ..
+   18  git://sigrok.org/libsigrokdecode
+   19  git clone git://sigrok.org/libsigrokdecode
+   20  ls
+   21  cd libsigrokdecode/
+   22  ./autogen.sh 
+   23  ls
+   24  ./configure 
+   25  make
+   26  sudo make install
+   27  ls
+   28  cd ..
+   29  git clone git://sigrok.org/git://sigrok.org/sigrok-firmware
+   30  git clone git://sigrok.org/sigrok-firmware
+   31  cd sigrok-firmware/
+   32  ./autogen.sh 
+   33  ./configure 
+   34  make
+   35  sudo make install
+   36  cd ..
+   37  git clone git://sigrok.org/sigrok-cli
+   38  cd sigrok-cli
+   39  ./autogen.sh
+   40  ./configure
+   41  make
+   42  sudo make install
+   43  sudo ldconfig /usr/local/lib
+   44  sigrok-cli 
+   45  sigrok-cli --scan
+   46  cd ~/Downloads/
+   47  ls
+   48  cd Logic\ 1.2.10\ \(32-bit\)/
+   49  ls
+   50  python3 ./sigrok-fwextract-saleae-logic16 Logic
+   51  ls
+   52  cd ..
+   53  ls
+   54  cd Logic_/
+   55  sudo cp -a ~/Downloads/Logic_/saleae-logic16-fpga-18.bitstream ~/../../usr/local/share/sigrok-firmware/
+   56  sudo cp -a ~/Downloads/Logic_/saleae-logic16-fpga-33.bitstream ~/../../usr/local/share/sigrok-firmware/
+   57  sudo cp -a ~/Downloads/Logic_/saleae-logic16-f ~/../../usr/local/share/sigrok-firmware/
+   58  sudo cp -a ~/Downloads/Logic_/saleae-logic16-fx2.fw ~/../../usr/local/share/sigrok-firmware/
+   59  sigrok-cli --scan
+   60  cd ~/Desktop/
+   61  ls
+   62  mkdir daq-tests
+   63  mkdir 0712
+   64  cd 
+   65  cd Desktop/
+   66  ls
+   67  cd daq-tests/
+   68  cd 0712/
+   69  sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -o data1s.csv -O csv
+   70  top
+   71  ls
+   72  cd Desktop/
+   73  ls
+   74  cd daq-tests/
+   75  ls
+   76  mkdir 0713
+   77  cd 0713
+   78  ls
+   79  sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -o data35k_sine_125k_clk_1m_sp_1s.csv -O csv
+   80  sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=500k -o data35k_sine_125k_clk_500k_sp_1s.csv -O csv
+   81  sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -o data35k_sine_250k_clk_1m_sp_1s.csv -O csv
+   82  sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=500k -o data35k_sine_250k_clk_500k_sp_1s.csv -O csv
+   83  sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -o actual_data35k_sine_250k_clk_1m_sp_1s.csv -O csv
+   84  sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -o actual_250k_clk_1m_sp_1s.csv -O csv
+   85  sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 5s --config samplerate=1m -o actual_250k_clk_1m_sp_5s.csv -O csv
+   86  sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 9s --config samplerate=1m -o actual_250k_clk_1m_sp_5s.csv -O csv
+   87  sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 9s --config samplerate=500k -o actual_250k_clk_1m_sp_5s.csv -O csv
+   88  time sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 9s --config samplerate=500k -o actual_250k_clk_1m_sp_5s.csv -O csv
+   89  time sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 9s --config samplerate=125k -o actual_250k_clk_1m_sp_5s.csv -O csv
+   90  time sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 9s --config samplerate=250k -o actual_250k_clk_1m_sp_5s.csv -O csv
+   91  time sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 9s --config samplerate=500k -o actual_250k_clk_1m_sp_5s.csv -O csv
+   92  strace -fox sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 9s --config samplerate=500k -o actual_250k_clk_1m_sp_5s.csv -O csv
+   93  sudo strace -fox sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 9s --config samplerate=500k -o actual_250k_clk_1m_sp_5s.csv -O csv
+   94  less x
+   95  man strace
+   96  sudo strace -tfox sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 9s --config samplerate=500k -o actual_250k_clk_1m_sp_5s.csv -O csv
+   97  less x
+   98  sudo strace -ttfox sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 9s --config samplerate=500k -o actual_250k_clk_1m_sp_5s.csv -O csv
+   99  less x
+  100  ls
+  101  cd Desktop/
+  102  cd daq-tests/
+  103  cd 0713
+  104  ls
+  105  sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -o /dev/null -O csv
+  106  sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=500k -o /dev/null -O csv
+  107  sudo strace -ttfox sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=500k -o /dev/null -O csv
+  108  grep open x
+  109  grep open x |less
+  110  grep write x |less
+  111  sudo time sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -o /dev/null -O csv
+  112  which time
+  113  time sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -o /dev/null -O csv
+  114  perl -e 'while(1){}'
+  115  less x
+  116  sigrok-cli --help
+  117  sigrok-cli -h
+  118  sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -o data1s.csv -O csv -l 5
+  119  cd Desktop/daq-tests/0713/
+  120  ls
+  121  sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -o data1s.csv -O csv
+  122  ifconfig
+  123  sudo su -
+  124  cd Downloads/
+  125  ls
+  126  wget abyz.me.uk/rpi/pigpio/pigpio.zip
+  127  unzip pigpio.zip
+  128  cd PIGPIO
+  129  make
+  130  sudo make install
+  131  pigs
+  132  pigs hwver
+  133  pigiod
+  134  pigpiod
+  135  sudo pigpiod
+  136  pigs hwver
+  137  pigs hwver # On a B+
+  138  pigs hp 18 250000 50000
+  139  pigs hp 18 250000 500000
+  140  top
+  141  cd Documents/
+  142  ls
+  143  sudo apt-get install git-core g++ make cmake libtool pkg-config libglib2.0-dev libboost-test-dev libboost-serialization-dev libboost-filesystem-dev libboost-system-dev libqt5svg5-dev qtbase5-dev
+  144  git clone git://sigrok.org/pulseview
+  145  cd pulseview
+  146  cmake .
+  147  make
+  148  sudo make install]\\\\\\\\\\\\\\\; 
+  149  sudo make install
+  150  ls
+  151  ls | cat
+  152  ls | wc
+  153  wc
+  154  ls | hexdump -C
+  155  ls | gzip -c | hexdump -C
+  156  ls | gzip -c | cat | hexdump -C
+  157  ls | gzip -c | cat | gzip -cd | hexdump -C
+  158  mkdir q
+  159  cd q
+  160  touch dog
+  161  echo hi > dog
+  162  ls
+  163  cat dog o
+  164  cat dog 
+  165  cd ..
+  166  mkdir qq
+  167  cd qq
+  168  ls
+  169  ssh localhost tar cz q | hexdump -C
+  170  ssh localhost tar cz q | tar xvz
+  171  ls
+  172  cd q
+  173  ls
+  174  cat dog 
+  175  cd ..
+  176  ssh localhost tar cz q | gzip -cd > this.tar
+  177  tar tv this.tar 
+  178  tar tvf this.tar 
+  179  nano x.py
+  180  mv x.py filter.py
+  181  cat filter.py 
+  182  nano filter.c
+  183  gcc filter.
+  184  gcc filter.c
+  185  dd if=/dev/urandom out=test1 bs=1k count=1
+  186  dd if=/dev/urandom of=test1 bs=1k count=1
+  187  hd
+  188  hd test1 
+  189  gcc filter.c -O3 -o filter
+  190  rm filter.py
+  191  cat test1 | ./filter > test1done
+  192  nano filter.c 
+  193  gcc filter.c -O3 -o filter && cat test1 | ./filter 
+  194  nano filter.c 
+  195  gcc filter.c -O3 -o filter && cat test1 | ./filter 
+  196  cat test1 | ./filter > test1done 
+  197  hd test1done 
+  198  nano filter.c 
+  199  cat test1 | ./filter 
+  200  gcc filter.c -O3 -o filter 
+  201  cat test1 | ./filter 
+  202  cat test1 | ./filter  | head
+  203  nano filter.c 
+  204  gcc filter.c -O3 -o filter 
+  205  cat test1 | ./filter > test1done 
+  206  ls -l
+  207  sigrok -o - | ./filter > mydata.dat
+  208  ls
+  209  rm a.out -rf mydata.dat q test1 test1done this.tar 
+  210  ls
+  211  cd ..
+  212  mv qq datafilter
+  213  rm -rf q
+  214  ls
+  215  history 
+  216  history  > pipecmds.txt
