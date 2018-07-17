@@ -214,3 +214,9 @@
   214  ls
   215  history 
   216  history  > pipecmds.txt
+
+sigrok -o - | ./filter > mydata.dat
+cat test1 | ./filter > test1done 
+1. > a:feed stdout to a file a ?
+2. | connects what to what?
+3. stdin/out multiple of them
