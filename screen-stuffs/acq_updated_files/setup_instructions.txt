@@ -1,0 +1,14 @@
+author: Yao
+email: yy123@duke.edu
+
+To set up autonomous data logging, this script named "go" needs to be in a directory "/home/pi/acq". It's run in a screen sesison that starts on boot.
+
+This line needs to be added to "/etc/rc.local". Refer to the rc.local file for reference.
+
+	sudo -H -u pi screen -dmS acq sh -c 'cd /home/pi/acq && ./go 2>&1 | tee -a run.log'
+
+To test if this works, you need to verify the following (incomplete):
+
+1. A screen session is started upon boot. Just boot and do "screen -ls" and look for the presence of a session named xxx.acq
+2. Verify that if logic analyzer is connnected, there are valid data log files. Have one session running and go to /home/pi/acq directory and check if there's a file named xxx.gz, which is the compressed data file. Check the size first, it should increase around a rate of .1MB/s. To further verify the validity of the data, uncompress and make a figure on the data.
+3. Verify that new logs don't overwrite the old ones. "ctrl+c" to kill/end the screen session once in. Go to /home/pi/acq to check the index and size of the latest log files. Restart the session by running "screen -dmS acq sh -c 'cd /home/pi/acq && ./go 2>&1 | tee -a run.log'" in a terminal. Then look in /home/pi/acq and check if a file of a larger index and its size is increasing

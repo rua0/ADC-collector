@@ -1,0 +1,28 @@
+pigs hp 19 125000001 100000
+
+hardware 250khz clk 50% pwm through gpio 18 which is the 6th pin on the right column
+pigs hp 18 250000 500000
+
+with filter program in the same directory, use "./filter"
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -O binary | tee raw_unflipped | ./filter > filtered4.txt
+
+since filter is added to bin folder, could be called with "filter" as well
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -O binary | tee raw_unflipped | filter > filtered4.txt
+
+compress and save all files
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -O binary | tee raw_unflipped | filter | tee filtered4.txt | gzip -c>mydata.gz
+
+remember gzip consumes the original file, that's why tee is needed
+
+compress and save only the compressed
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -O binary | filter | gzip -c > mydata.gz
+
+to run continuously change "--time 1s" to "--continuous"
+compress and save only the compressed
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --continuous --config samplerate=1m -O binary | filter | gzip -c > mydata.gz
+
+to add log level
+sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --continuous -l 1 --config samplerate=1m -O binary | filter | gzip -c > mydata.gz
+
+to uncompress
+zcat mydata.gz > filename

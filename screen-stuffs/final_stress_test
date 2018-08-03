@@ -1,0 +1,65 @@
+#!/bin/bash
+
+#sudo -H -u pi screen -dmS stress_exp sh -c 'cd /home/pi/acq && ./final_stress_test 2>&1 | tee -a final_stress_test.log'
+#date +%F-%T.%N
+#example: 2018-08-02-16:21:00.840462472
+echo 
+echo 
+echo 
+echo `date` in years: Starting a new screen session. 
+for A in `seq 0000 1000`; 
+	do F=`printf %04d.gz $A` 
+	if [ ! -e $F ] ; then break; 
+	fi
+done
+echo The first file stored in this session is $F
+echo 
+#now A stores the newest unused name 
+
+for B in `seq $A 1000`; 
+	do F=`printf %04d.gz $B` 
+	echo Saving to $F... on
+	echo `date +%F-%T.%N`
+	sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --continuous --config samplerate=500k -O binary | filter | gzip -c > $F
+	echo `date +%F-%T.%N`, it died
+	echo $?
+	echo 
+done
+
+echo storing more than 1000 files
+while true; do
+	sleep 5 
+done
+
+#	echo Saving to $F...
+	# debug by only logging 1s and saving all files
+	# sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 3s --config samplerate=1m -O binary | tee raw_$F | filter | tee filtered_$F | gzip -c > $F
+	# actual version for running this forever
+	#ionice -c1 -n0 
+	# sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --continuous --config samplerate=1M -O binary | filter | gzip -c > $F
+# 	sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 3s --config samplerate=1M -O binary | filter | gzip -c > $F
+# 	echo $?
+# 	echo it died, `date`
+# 	for A in `seq $A 100`; 
+# 		do F=`printf %03d.gz $A` 
+# 		if [ ! -e $F ] ; then break; 
+# 		fi
+# 	done
+# 	sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 3s --config samplerate=1M -O binary | filter | gzip -c > $F
+# 	echo $?
+# 	echo it died, `date`
+# 	for A in `seq $A 100`; 
+# 		do F=`printf %03d.gz $A` 
+# 		if [ ! -e $F ] ; then break; 
+# 		fi
+# 	done
+# 	sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 3s --config samplerate=1M -O binary | filter | gzip -c > $F
+# 	echo $?
+# 	echo it died, `date`
+# 	echo not restarting, sleeping
+# 	sleep 5
+# 	# only execute once ever for now
+# 	while true; do
+# 		sleep 5 
+# 	done
+# done

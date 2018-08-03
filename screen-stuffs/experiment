@@ -1,0 +1,29 @@
+#!/bin/bash
+#gzip
+#dev/null
+#straight to the file
+#sudo -H -u pi screen -dmS exp sh -c 'cd /home/pi/acq && ./experiment 2>&1 | tee -a exp.log'
+echo Starting. `date`
+while true ; do
+	echo experiment1 without gzip
+	echo Starting. `date`
+	sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --continuous -l 5 --config samplerate=500k -O binary | filter > filtered_exp.txt
+	echo $?
+	echo it died, `date`
+	echo experiment2 with gzip to /dev/null
+	echo Starting. `date`
+	sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --continuous -l 5 --config samplerate=500k -O binary | filter | gzip -c > /dev/null
+	echo $?
+	echo it died, `date`
+	echo experiment2 with gzip straight to file
+	echo Starting. `date`
+	sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --continuous -l 5 --config samplerate=500k -O binary | filter | gzip -c > test.gz
+	echo $?
+	echo it died, `date`
+	echo not restarting, sleeping
+	sleep 5
+	# only execute once ever for now
+	while true; do
+		sleep 5 
+	done
+done

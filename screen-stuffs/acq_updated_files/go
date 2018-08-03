@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo Starting. `date`
+while true ; do
+	for A in `seq 000 100`; 
+		do F=`printf %03d.gz $A` 
+		if [ ! -e $F ] ; then break; 
+		fi
+	done
+	echo Saving to $F...
+	# debug by only logging 1s and saving all files
+	sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --time 1s --config samplerate=1m -O binary | tee raw_$F | filter | tee filtered_$F | gzip -c > $F
+	# actual version for running this forever
+	sudo sigrok-cli --driver saleae-logic16:conn=21a9.1001 --continuous --config samplerate=1m -O binary | filter | gzip -c > $F
+	echo "it died, not restarting, sleeping"
+	sleep 5
+	# only execute once ever for now
+	while true; do
+		sleep 5 
+	done
+done
+
