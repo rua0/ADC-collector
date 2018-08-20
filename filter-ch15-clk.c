@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+//to compile: gcc filter.c -O3 -o filter
+//to add to bin: sudo cp filter /bin/filter
 
 int main() {
 	uint16_t sample;
@@ -21,9 +23,9 @@ int main() {
 		//mask out the 15th bit as the clk
 		clk = sample>>15;
 		//left shift to take out the msb then rescale
-		sig = (sample<<1)>>1;
+		sig = sample&0x7FFF;
 		if (!oldclk && clk) {
-			fwrite(&sample, 2, 1, stdout);
+			fwrite(&sig, 2, 1, stdout);
 		}
 		oldclk=clk;
 	}
