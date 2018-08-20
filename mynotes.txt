@@ -3,6 +3,7 @@ keynotes from experiments:
 
 2. Due to pi zero's cpu constraint, it can't acquire data, filter and compress on the fly. Taking compression off the equation is still no good. Plan to test if take out the filter could help.
 
+3. Files are too large in general. To split the files, use split -d -a4 -b 50000000 0005 0005-
 
 sigrok related!!!! Likely no need to go through the following process again because you can just mirror the images
 --------------------------------------------
