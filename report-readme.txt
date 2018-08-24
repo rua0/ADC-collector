@@ -159,6 +159,11 @@ The second important mechanism of joining data when acquisition process dies is 
 
 By having periodically different intervals between any 3 consecutive pulses, we are able to tell which pulse(s) are missing. As of now, the pattern of intervals is 1s, 2s, ..., 10s, 1s, 2s ... This has proven to work. We were trying to come up with alternative patterns because having a 10s there is probalmatic. The least we can do 1 2 3 4 5 6 5 4 3 2. Or have .5 in difference. But again this is pre-optimization.
 
+Others:
+The filter-ch15-clk.c in the repo is the source code for the filter program.
+
+The adc-read_process2.m is the matlab script that plots the raw data file from acquired.
+
 Known Problems
 
 In this past we planned to just use pi-zeros. But on pi-zero the acquisition process dies really quickly (less than 10s) if the sampling rate is 1M. Pi-zero survives longer (up to a couple hour and down to a couple minutes) when rate is 500k while pi-3 can run 500k indefinitely. 
